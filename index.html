@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyvalis — Automatizamos tu empresa para que crezca sin trabajar más</title>
+<meta name="description" content="Tu empresa pierde horas en tareas que podrían hacerse solas. Automatización e inteligencia artificial, explicada simple.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080D14;
+    --bg-2: #0C1420;
+    --card: rgba(255,255,255,.03);
+    --border: rgba(255,255,255,.08);
+    --fg: #E6EBF2;
+    --muted: #8B95A7;
+    --accent: #37E0C8;
+    --accent-dim: rgba(55,224,200,.14);
+    --accent-glow: rgba(55,224,200,.35);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--fg); font-family:'Inter',sans-serif; line-height:1.6; overflow-x:hidden; }
+  h1,h2,h3,.logo,.eyebrow,.step-n,.lang-btn { font-family:'Space Grotesk',sans-serif; }
+  a { color:inherit; }
+  section { position:relative; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
+
+  /* ===== Nav ===== */
+  nav { position:fixed; top:0; left:0; right:0; z-index:50; backdrop-filter:blur(14px); background:rgba(8,13,20,.72); border-bottom:1px solid var(--border); }
+  .nav-inner { max-width:1120px; margin:0 auto; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .logo { font-weight:700; font-size:1.2rem; letter-spacing:0.01em; text-decoration:none; }
+  .logo em { color:var(--accent); font-style:normal; }
+  .nav-links { display:flex; gap:24px; align-items:center; }
+  .nav-links a { text-decoration:none; font-size:0.88rem; color:var(--muted); transition:color .2s; }
+  .nav-links a:hover { color:var(--fg); }
+  .btn-cta { border:1px solid rgba(55,224,200,.4); color:var(--accent) !important; padding:9px 18px; border-radius:8px; font-weight:600; transition:background .2s, box-shadow .2s; }
+  .btn-cta:hover { background:var(--accent-dim); box-shadow:0 0 20px rgba(55,224,200,.18); }
+  .lang-btn { border:1px solid var(--border); background:transparent; color:var(--fg); font-weight:700; font-size:0.78rem; padding:8px 13px; border-radius:8px; cursor:pointer; transition:border-color .2s; letter-spacing:0.06em; }
+  .lang-btn:hover { border-color:rgba(255,255,255,.3); }
+  @media (max-width:720px){ .nav-links a:not(.btn-cta){ display:none; } }
+
+  /* ===== Hero ===== */
+  .hero { padding:150px 24px 40px; text-align:center; overflow:hidden; }
+  #net { position:absolute; inset:0; width:100%; height:100%; opacity:.85; }
+  .hero .fade { position:absolute; inset:auto 0 0 0; height:180px; background:linear-gradient(180deg,transparent,var(--bg)); pointer-events:none; }
+  .hero-inner { position:relative; z-index:2; }
+  .eyebrow { font-size:0.75rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--accent); font-weight:600; }
+  .hero h1 { font-size:clamp(2.1rem,5.4vw,3.6rem); font-weight:700; letter-spacing:-0.02em; line-height:1.12; max-width:820px; margin:16px auto 0; }
+  .hero h1 .circ { position:relative; white-space:nowrap; }
+  .hero h1 .circ svg { position:absolute; left:-4%; top:-16%; width:108%; height:136%; pointer-events:none; overflow:visible; }
+  .hero h1 .circ ellipse { stroke-dasharray:600; stroke-dashoffset:600; animation:drawCirc 1.1s ease .7s forwards; }
+  @keyframes drawCirc { to { stroke-dashoffset:0; } }
+  .hero p.lead { color:var(--muted); margin:20px auto 0; max-width:560px; font-size:1.06rem; }
+  .hero-btns { margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary { display:inline-block; background:var(--accent); color:#04110E; padding:15px 30px; border-radius:10px; text-decoration:none; font-weight:700; font-size:0.97rem; box-shadow:0 0 34px var(--accent-glow); transition:transform .2s, box-shadow .2s; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 44px var(--accent-glow); }
+  .btn-ghost { display:inline-block; color:var(--fg); padding:15px 22px; text-decoration:none; font-weight:600; font-size:0.97rem; border-radius:10px; border:1px solid var(--border); transition:border-color .2s; }
+  .btn-ghost:hover { border-color:rgba(255,255,255,.25); }
+  .hero .note { margin-top:14px; font-size:0.8rem; color:var(--muted); }
+  @media (max-width:560px){
+    .hero h1 .circ { white-space:normal; text-decoration:underline; text-decoration-color:rgba(55,224,200,.55); text-decoration-thickness:3px; text-underline-offset:6px; color:var(--accent); }
+    .hero h1 .circ svg { display:none; }
+  }
+
+  /* ===== Flow ===== */
+  .flow-section { padding:44px 24px 26px; }
+  .flow { display:flex; align-items:stretch; justify-content:center; gap:0; flex-wrap:wrap; position:relative; z-index:2; }
+  .node { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 18px; font-size:0.86rem; font-weight:600; display:flex; align-items:center; gap:10px; transition:all .45s ease; opacity:.38; transform:translateY(5px); backdrop-filter:blur(6px); }
+  .node .ico { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; font-size:0.85rem; background:rgba(55,224,200,.08); flex-shrink:0; }
+  .node.on { opacity:1; transform:translateY(0); border-color:rgba(55,224,200,.55); box-shadow:0 0 26px rgba(55,224,200,.16); }
+  .node.on .ico { background:var(--accent-dim); }
+  .arrow { width:44px; align-self:center; height:2px; background:rgba(255,255,255,.12); position:relative; margin:0 5px; overflow:hidden; flex-shrink:0; }
+  .arrow::after { content:''; position:absolute; inset:0; background:var(--accent); transform:translateX(-100%); transition:transform .45s ease; }
+  .arrow.on::after { transform:translateX(0); }
+  .flow-caption { text-align:center; color:var(--muted); font-size:0.82rem; margin-top:20px; font-style:italic; }
+  @media (max-width:900px){
+    .flow { flex-direction:column; align-items:center; gap:8px; }
+    .arrow { width:2px; height:22px; margin:0; }
+    .arrow::after { transform:translateY(-100%); }
+    .arrow.on::after { transform:translateY(0); }
+    .node { width:min(100%,340px); justify-content:flex-start; }
+  }
+
+  /* ===== Secciones ===== */
+  .section { padding:88px 24px; }
+  .section-head { text-align:center; max-width:640px; margin:0 auto 52px; }
+  .section-head h2 { font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:700; letter-spacing:-0.015em; line-height:1.2; }
+  .section-head p { color:var(--muted); margin-top:14px; }
+
+  /* ===== Problema ===== */
+  .problema { background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .pains { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; max-width:960px; margin:0 auto; }
+  .pain { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; font-size:0.9rem; font-weight:600; display:flex; gap:10px; align-items:flex-start; }
+  .pain::before { content:'✗'; color:#F0716A; font-weight:800; }
+  @media (max-width:820px){ .pains { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .pains { grid-template-columns:1fr; } }
+
+  /* ===== Servicios ===== */
+  .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .svc { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:26px; transition:border-color .25s, transform .25s; }
+  .svc:hover { border-color:rgba(55,224,200,.45); transform:translateY(-3px); }
+  .svc h3 { font-size:1.02rem; margin-bottom:8px; }
+  .svc h3::before { content:'▸ '; color:var(--accent); }
+  .svc p { color:var(--muted); font-size:0.88rem; }
+  @media (max-width:820px){ .services-grid { grid-template-columns:1fr; } }
+
+  /* ===== Casos ===== */
+  .casos { background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .casos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:880px; margin:0 auto; }
+  .caso { display:flex; align-items:center; gap:10px; font-size:0.9rem; font-weight:600; padding:16px 18px; background:var(--card); border:1px solid var(--border); border-radius:10px; }
+  .caso::before { content:'✓'; color:var(--accent); font-weight:800; }
+  @media (max-width:820px){ .casos-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .casos-grid { grid-template-columns:1fr; } }
+
+  /* ===== Cómo trabajamos ===== */
+  .steps { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+  .step { text-align:center; padding:20px 10px; }
+  .step-n { width:44px; height:44px; margin:0 auto 12px; border-radius:50%; border:1px solid rgba(55,224,200,.4); color:var(--accent); display:grid; place-items:center; font-weight:700; font-size:1rem; background:var(--accent-dim); }
+  .step h3 { font-size:0.92rem; margin-bottom:4px; }
+  .step p { color:var(--muted); font-size:0.78rem; }
+  @media (max-width:900px){ .steps { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:560px){ .steps { grid-template-columns:repeat(2,1fr); } }
+
+  /* ===== Por qué ===== */
+  .why { background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .why-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:26px; }
+  .why-card h3 { font-size:1rem; margin-bottom:8px; color:var(--accent); }
+  .why-card p { color:var(--muted); font-size:0.88rem; }
+  @media (max-width:820px){ .why-grid { grid-template-columns:1fr; } }
+
+  /* ===== Quote ===== */
+  .quote { text-align:center; padding:100px 24px; }
+  .quote blockquote { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.3rem,3vw,1.9rem); font-weight:500; letter-spacing:-0.01em; line-height:1.35; max-width:760px; margin:0 auto; }
+  .quote blockquote em { color:var(--accent); font-style:normal; }
+
+  /* ===== CTA final ===== */
+  .final { text-align:center; padding:90px 24px 110px; background:radial-gradient(ellipse 60% 70% at 50% 100%, rgba(55,224,200,.10), transparent); }
+  .final h2 { font-size:clamp(1.7rem,3.6vw,2.5rem); font-weight:700; letter-spacing:-0.015em; max-width:640px; margin:0 auto; }
+  .final p { color:var(--muted); margin:16px auto 0; max-width:480px; }
+
+  /* ===== Footer ===== */
+  footer { border-top:1px solid var(--border); padding:34px 24px; display:flex; justify-content:space-between; align-items:center; max-width:1120px; margin:0 auto; flex-wrap:wrap; gap:14px; }
+  footer .muted { color:var(--muted); font-size:0.82rem; }
+
+  /* ===== Reveal ===== */
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    * { transition:none !important; animation:none !important; }
+    .reveal { opacity:1; transform:none; }
+    .node { opacity:1; transform:none; }
+    .hero h1 .circ ellipse { stroke-dashoffset:0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">cy<em>valis</em></a>
+    <div class="nav-links">
+      <a href="#servicios" data-i18n="nav_servicios">Servicios</a>
+      <a href="#proceso" data-i18n="nav_proceso">Cómo trabajamos</a>
+      <a href="#porque" data-i18n="nav_porque">Por qué Cyvalis</a>
+      <a class="btn-cta" href="#contacto" data-i18n="nav_cta">Agendá una llamada</a>
+      <button class="lang-btn" id="langBtn" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <canvas id="net"></canvas>
+  <div class="fade"></div>
+  <div class="hero-inner">
+    <div class="eyebrow" data-i18n="eyebrow">Automatización + Inteligencia Artificial</div>
+    <h1 id="heroTitle"></h1>
+    <p class="lead" data-i18n="lead">Copiar datos, enviar emails, actualizar Excel, pasar información entre sistemas. Nosotros hacemos que todo eso pase automáticamente, las 24 horas del día.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#contacto" data-i18n="btn_primary">Agendá una llamada gratuita</a>
+      <a class="btn-ghost" href="#servicios" data-i18n="btn_ghost">Ver cómo funciona ↓</a>
+    </div>
+    <p class="note" data-i18n="hero_note">Sin compromiso · Te respondemos en menos de 24 hs</p>
+  </div>
+</section>
+
+<!-- ===== FLOW ===== -->
+<div class="flow-section">
+  <div class="flow" id="flow">
+    <div class="node"><span class="ico">📝</span><span data-i18n="flow_1">El cliente completa un formulario</span></div>
+    <div class="arrow"></div>
+    <div class="node"><span class="ico">⚡</span><span data-i18n="flow_2">Se registra solo</span></div>
+    <div class="arrow"></div>
+    <div class="node"><span class="ico">📅</span><span data-i18n="flow_3">Se agenda la reunión</span></div>
+    <div class="arrow"></div>
+    <div class="node"><span class="ico">✉️</span><span data-i18n="flow_4">Se envía el email</span></div>
+    <div class="arrow"></div>
+    <div class="node"><span class="ico">🔔</span><span data-i18n="flow_5">Tu equipo se entera</span></div>
+  </div>
+  <p class="flow-caption" data-i18n="flow_caption">Todo esto pasa sin que nadie toque nada.</p>
+</div>
+
+<!-- ===== PROBLEMA ===== -->
+<section class="section problema">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 data-i18n="problema_h2">¿Tu equipo pierde horas haciendo tareas repetitivas?</h2>
+      <p data-i18n="problema_p">Si te suena alguna de estas, ya sabés por dónde se está escapando el tiempo.</p>
+    </div>
+    <div class="pains reveal">
+      <div class="pain" data-i18n="pain_1">Copiar datos a mano entre sistemas</div>
+      <div class="pain" data-i18n="pain_2">Responder las mismas consultas mil veces</div>
+      <div class="pain" data-i18n="pain_3">Actualizar el Excel todos los días</div>
+      <div class="pain" data-i18n="pain_4">Perseguir clientes para el seguimiento</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICIOS ===== -->
+<section class="section" id="servicios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 data-i18n="servicios_h2">Qué hacemos por tu empresa</h2>
+      <p data-i18n="servicios_p">Nada de plantillas: cada empresa trabaja diferente, y cada solución se diseña para ese negocio.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal"><h3 data-i18n="svc1_h">Automatización de procesos</h3><p data-i18n="svc1_p">Eliminamos tareas repetitivas para que tu equipo gane tiempo y reduzca errores.</p></div>
+      <div class="svc reveal"><h3 data-i18n="svc2_h">Automatización comercial</h3><p data-i18n="svc2_p">Captamos, organizamos y damos seguimiento a cada oportunidad de venta automáticamente.</p></div>
+      <div class="svc reveal"><h3 data-i18n="svc3_h">Agentes de IA</h3><p data-i18n="svc3_p">Asistentes inteligentes que responden consultas y trabajan las 24 horas, incluso con tu negocio cerrado.</p></div>
+      <div class="svc reveal"><h3 data-i18n="svc4_h">Integraciones inteligentes</h3><p data-i18n="svc4_p">Conectamos todas las herramientas de tu empresa para que la información fluya sin intervención manual.</p></div>
+      <div class="svc reveal"><h3 data-i18n="svc5_h">Soluciones a medida</h3><p data-i18n="svc5_p">Automatizaciones adaptadas a los procesos específicos de tu negocio, con análisis, diseño y capacitación.</p></div>
+      <div class="svc reveal"><h3 data-i18n="svc6_h">Soporte y mantenimiento</h3><p data-i18n="svc6_p">No desaparecemos después de la entrega: monitoreamos, mejoramos y te acompañamos a largo plazo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASOS ===== -->
+<section class="section casos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 data-i18n="casos_h2">Algunos ejemplos de lo que automatizamos</h2>
+    </div>
+    <div class="casos-grid reveal">
+      <div class="caso" data-i18n="caso_1">Automatización de ventas</div>
+      <div class="caso" data-i18n="caso_2">Seguimiento automático de clientes</div>
+      <div class="caso" data-i18n="caso_3">Respuestas con IA</div>
+      <div class="caso" data-i18n="caso_4">Facturación</div>
+      <div class="caso" data-i18n="caso_5">Reportes automáticos</div>
+      <div class="caso" data-i18n="caso_6">Integración entre sistemas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CÓMO TRABAJAMOS ===== -->
+<section class="section" id="proceso">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 data-i18n="proceso_h2">Cómo trabajamos</h2>
+      <p data-i18n="proceso_p">Un proceso simple, de la primera llamada al soporte continuo.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><div class="step-n">1</div><h3 data-i18n="step1_h">Diagnóstico</h3><p data-i18n="step1_p">Una llamada para entender tu negocio.</p></div>
+      <div class="step"><div class="step-n">2</div><h3 data-i18n="step2_h">Diseño</h3><p data-i18n="step2_p">Armamos la solución ideal para vos.</p></div>
+      <div class="step"><div class="step-n">3</div><h3 data-i18n="step3_h">Desarrollo</h3><p data-i18n="step3_p">La construimos, paso a paso.</p></div>
+      <div class="step"><div class="step-n">4</div><h3 data-i18n="step4_h">Pruebas</h3><p data-i18n="step4_p">Verificamos que todo funcione.</p></div>
+      <div class="step"><div class="step-n">5</div><h3 data-i18n="step5_h">Entrega</h3><p data-i18n="step5_p">La ponemos a trabajar por vos.</p></div>
+      <div class="step"><div class="step-n">6</div><h3 data-i18n="step6_h">Soporte</h3><p data-i18n="step6_p">Te acompañamos a largo plazo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POR QUÉ ===== -->
+<section class="section why" id="porque">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 data-i18n="porque_h2">¿Por qué Cyvalis?</h2>
+      <p data-i18n="porque_p">Porque no vendemos automatizaciones. Diseñamos sistemas que mejoran la forma en que funciona tu empresa.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><h3 data-i18n="why1_h">Entendemos antes de automatizar</h3><p data-i18n="why1_p">Antes de conectar una sola herramienta, estudiamos cómo funciona tu empresa y dónde se pierde tiempo, dinero o productividad.</p></div>
+      <div class="why-card reveal"><h3 data-i18n="why2_h">Nada de plantillas</h3><p data-i18n="why2_p">Cada empresa trabaja diferente. Cada automatización se diseña específicamente para ese negocio.</p></div>
+      <div class="why-card reveal"><h3 data-i18n="why3_h">Relaciones a largo plazo</h3><p data-i18n="why3_p">No desaparecemos después de la implementación: soporte, mejoras y mantenimiento para que el valor siga creciendo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUOTE ===== -->
+<section class="quote">
+  <blockquote class="reveal" id="quoteText"></blockquote>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="final" id="contacto">
+  <div class="reveal">
+    <h2 data-i18n="final_h2">¿Cuánto tiempo podría ahorrar tu empresa?</h2>
+    <p data-i18n="final_p">Contanos cómo trabajás hoy y te decimos qué se puede automatizar. La primera llamada es gratuita.</p>
+    <div class="hero-btns" style="margin-top:30px;">
+      <a class="btn-primary" href="#" data-i18n="btn_primary2">Agendá una llamada gratuita</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a class="logo" href="#">cy<em>valis</em></a>
+  <span class="muted" data-i18n="footer">© 2026 Cyvalis · Automatización e inteligencia artificial para tu empresa</span>
+</footer>
+
+<script>
+// ============================================================
+// Diccionario ES/EN
+// ============================================================
+const I18N = {
+  es: {
+    _title: "Cyvalis — Automatizamos tu empresa para que crezca sin trabajar más",
+    _desc: "Tu empresa pierde horas en tareas que podrían hacerse solas. Automatización e inteligencia artificial, explicada simple.",
+    _hero_h1: 'Tu empresa pierde horas en tareas que <span class="circ">podrían hacerse solas<svg viewBox="0 0 200 60" preserveAspectRatio="none"><ellipse cx="100" cy="30" rx="96" ry="26" fill="none" stroke="#37E0C8" stroke-width="2.5" opacity="0.65"/></svg></span>',
+    _quote: '"La mejor tecnología no es la que usa los términos más complejos. Es la que hace que los problemas complejos <em>parezcan simples</em>."',
+    nav_servicios: "Servicios", nav_proceso: "Cómo trabajamos", nav_porque: "Por qué Cyvalis", nav_cta: "Agendá una llamada",
+    eyebrow: "Automatización para empresas en crecimiento",
+    lead: "Copiar datos, enviar emails, actualizar Excel, pasar información entre sistemas. Nosotros hacemos que todo eso pase automáticamente, las 24 horas del día.",
+    btn_primary: "Agendá una llamada gratuita", btn_ghost: "Ver cómo funciona ↓",
+    hero_note: "Sin compromiso · Te respondemos en menos de 24 hs",
+    flow_1: "El cliente completa un formulario", flow_2: "Se registra solo", flow_3: "Se agenda la reunión", flow_4: "Se envía el email", flow_5: "Tu equipo se entera",
+    flow_caption: "Todo esto pasa sin que nadie toque nada.",
+    problema_h2: "¿Tu equipo pierde horas haciendo tareas repetitivas?",
+    problema_p: "Si te suena alguna de estas, ya sabés por dónde se está escapando el tiempo.",
+    pain_1: "Copiar datos a mano entre sistemas", pain_2: "Responder las mismas consultas mil veces", pain_3: "Actualizar el Excel todos los días", pain_4: "Perseguir clientes para el seguimiento",
+    servicios_h2: "Qué hacemos por tu empresa",
+    servicios_p: "Nada de plantillas: cada empresa trabaja diferente, y cada solución se diseña para ese negocio.",
+    svc1_h: "Automatización de procesos", svc1_p: "Eliminamos tareas repetitivas para que tu equipo gane tiempo y reduzca errores.",
+    svc2_h: "Automatización comercial", svc2_p: "Captamos, organizamos y damos seguimiento a cada oportunidad de venta automáticamente.",
+    svc3_h: "Agentes de IA", svc3_p: "Asistentes inteligentes que responden consultas y trabajan las 24 horas, incluso con tu negocio cerrado.",
+    svc4_h: "Integraciones inteligentes", svc4_p: "Conectamos todas las herramientas de tu empresa para que la información fluya sin intervención manual.",
+    svc5_h: "Soluciones a medida", svc5_p: "Automatizaciones adaptadas a los procesos específicos de tu negocio, con análisis, diseño y capacitación.",
+    svc6_h: "Soporte y mantenimiento", svc6_p: "No desaparecemos después de la entrega: monitoreamos, mejoramos y te acompañamos a largo plazo.",
+    casos_h2: "Algunos ejemplos de lo que automatizamos",
+    caso_1: "Automatización de ventas", caso_2: "Seguimiento automático de clientes", caso_3: "Respuestas con IA", caso_4: "Facturación", caso_5: "Reportes automáticos", caso_6: "Integración entre sistemas",
+    proceso_h2: "Cómo trabajamos", proceso_p: "Un proceso simple, de la primera llamada al soporte continuo.",
+    step1_h: "Diagnóstico", step1_p: "Una llamada para entender tu negocio.",
+    step2_h: "Diseño", step2_p: "Armamos la solución ideal para vos.",
+    step3_h: "Desarrollo", step3_p: "La construimos, paso a paso.",
+    step4_h: "Pruebas", step4_p: "Verificamos que todo funcione.",
+    step5_h: "Entrega", step5_p: "La ponemos a trabajar por vos.",
+    step6_h: "Soporte", step6_p: "Te acompañamos a largo plazo.",
+    porque_h2: "¿Por qué Cyvalis?",
+    porque_p: "Porque no vendemos automatizaciones. Diseñamos sistemas que mejoran la forma en que funciona tu empresa.",
+    why1_h: "Entendemos antes de automatizar", why1_p: "Antes de conectar una sola herramienta, estudiamos cómo funciona tu empresa y dónde se pierde tiempo, dinero o productividad.",
+    why2_h: "Nada de plantillas", why2_p: "Cada empresa trabaja diferente. Cada automatización se diseña específicamente para ese negocio.",
+    why3_h: "Relaciones a largo plazo", why3_p: "No desaparecemos después de la implementación: soporte, mejoras y mantenimiento para que el valor siga creciendo.",
+    final_h2: "¿Cuánto tiempo podría ahorrar tu empresa?",
+    final_p: "Contanos cómo trabajás hoy y te decimos qué se puede automatizar. La primera llamada es gratuita.",
+    btn_primary2: "Agendá una llamada gratuita",
+    footer: "© 2026 Cyvalis · Automatización e inteligencia artificial para tu empresa"
+  },
+  en: {
+    _title: "Cyvalis — Your business is losing hours on work that should run itself",
+    _desc: "Your business is losing hours on work that should run itself. Simple automation, real business results.",
+    _hero_h1: 'Your business is losing hours on work <span class="circ">that should run itself<svg viewBox="0 0 200 60" preserveAspectRatio="none"><ellipse cx="100" cy="30" rx="96" ry="26" fill="none" stroke="#37E0C8" stroke-width="2.5" opacity="0.65"/></svg></span>',
+    _quote: '"The best technology isn\'t the one that uses the most complex terms. It\'s the one that makes complex problems <em>look simple</em>."',
+    nav_servicios: "Services", nav_proceso: "How we work", nav_porque: "Why Cyvalis", nav_cta: "Book a call",
+    eyebrow: "Automation for growing businesses",
+    lead: "Copying data, sending emails, updating spreadsheets and following up with customers shouldn't take up your team's day. We automate repetitive work so your team can focus on growing the business instead.",
+    btn_primary: "Book a Free Call", btn_ghost: "See How It Works ↓",
+    hero_note: "No commitment · We'll get back to you within 24 hours",
+    flow_1: "A customer submits a form", flow_2: "The information is saved automatically", flow_3: "A meeting is scheduled", flow_4: "A confirmation email is sent", flow_5: "Your team gets notified",
+    flow_caption: "All of this happens automatically.",
+    problema_h2: "Does this sound familiar?",
+    problema_p: "If your team spends hours every week doing tasks like these, you're not alone.",
+    pain_1: "Copying information between different systems", pain_2: "Answering the same questions over and over again", pain_3: "Updating spreadsheets manually", pain_4: "Following up with customers one by one",
+    servicios_h2: "How we help your business",
+    servicios_p: "Every business works differently. That's why every solution we build is tailored to your workflow.",
+    svc1_h: "Process Automation", svc1_p: "Free your team from repetitive work by automating everyday business processes.",
+    svc2_h: "Sales Automation", svc2_p: "Capture, organize and follow up with every opportunity automatically.",
+    svc3_h: "AI Assistants", svc3_p: "Answer customer questions even when your business is closed with AI assistants trained for your business.",
+    svc4_h: "Software Integrations", svc4_p: "Connect the tools you already use so your information flows automatically.",
+    svc5_h: "Custom Solutions", svc5_p: "Every business is different. We build solutions designed around the way your company already works.",
+    svc6_h: "Support & Maintenance", svc6_p: "We don't disappear after launch. We monitor, improve and stay by your side for the long run.",
+    casos_h2: "A few examples of what we automate",
+    caso_1: "Sales automation", caso_2: "Automatic client follow-up", caso_3: "AI-powered replies", caso_4: "Invoicing", caso_5: "Automatic reports", caso_6: "System integration",
+    proceso_h2: "How We Work", proceso_p: "A simple process, from the first call to ongoing support.",
+    step1_h: "Diagnosis", step1_p: "We learn how your business works.",
+    step2_h: "Design", step2_p: "We identify repetitive tasks and shape the right automation for your workflow.",
+    step3_h: "Development", step3_p: "We build it, step by step.",
+    step4_h: "Testing", step4_p: "We make sure everything works as it should.",
+    step5_h: "Delivery", step5_p: "Your team starts saving time every single day.",
+    step6_h: "Support", step6_p: "We stay by your side for the long run.",
+    porque_h2: "Technology should make your work easier — not more complicated.",
+    porque_p: "We build simple solutions that solve real business problems. No technical jargon, no unnecessary complexity — just systems that save time, reduce mistakes and help your business run more efficiently.",
+    why1_h: "We understand before we automate", why1_p: "Before connecting a single tool, we study how your business works and where time, money or productivity is being lost.",
+    why2_h: "No templates", why2_p: "Every business works differently. Every automation is designed specifically for that business.",
+    why3_h: "Long-term relationships", why3_p: "We don't disappear after implementation: support, improvements and maintenance so the value keeps growing.",
+    final_h2: "Let's make your business work smarter.",
+    final_p: "Book a free consultation and discover how much time your business could save.",
+    btn_primary2: "Book a Free Call",
+    footer: "© 2026 Cyvalis · Simple automation. Real business results."
+  }
+};
+
+// ============================================================
+// Aplicar idioma
+// ============================================================
+let currentLang = "es";
+
+function applyLang(lang){
+  currentLang = lang;
+  const t = I18N[lang];
+  document.documentElement.lang = lang;
+  document.title = t._title;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute("content", t._desc);
+  document.getElementById("heroTitle").innerHTML = t._hero_h1;
+  document.getElementById("quoteText").innerHTML = t._quote;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (t[key]) el.textContent = t[key];
+  });
+  document.getElementById("langBtn").textContent = lang === "es" ? "EN" : "ES";
+  try { localStorage.setItem("cyvalis-lang", lang); } catch(e){ /* sin persistencia, no pasa nada */ }
+}
+
+// Idioma inicial: elección guardada > idioma del navegador > español
+(function(){
+  let lang = "es";
+  try {
+    const saved = localStorage.getItem("cyvalis-lang");
+    if (saved === "es" || saved === "en") lang = saved;
+    else if ((navigator.language || "").toLowerCase().startsWith("en")) lang = "en";
+  } catch(e){
+    if ((navigator.language || "").toLowerCase().startsWith("en")) lang = "en";
+  }
+  applyLang(lang);
+})();
+
+document.getElementById("langBtn").addEventListener("click", () => {
+  applyLang(currentLang === "es" ? "en" : "es");
+});
+
+// ===== Red de nodos del hero =====
+(function(){
+  const canvas = document.getElementById('net');
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w, h;
+  const nodes = [];
+  function resize(){
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  const N = 38;
+  for (let k = 0; k < N; k++){
+    nodes.push({ x:Math.random(), y:Math.random(), vx:(Math.random()-.5)*.0006, vy:(Math.random()-.5)*.0006, r:1.4+Math.random()*1.8 });
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for (const n of nodes){
+      if (!reduced){ n.x += n.vx; n.y += n.vy; }
+      if (n.x < 0 || n.x > 1) n.vx *= -1;
+      if (n.y < 0 || n.y > 1) n.vy *= -1;
+    }
+    for (let a = 0; a < N; a++){
+      for (let b = a+1; b < N; b++){
+        const dx = (nodes[a].x-nodes[b].x)*w, dy = (nodes[a].y-nodes[b].y)*h;
+        const d = Math.hypot(dx,dy);
+        if (d < 150){
+          ctx.strokeStyle = 'rgba(55,224,200,' + (0.13*(1-d/150)).toFixed(3) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(nodes[a].x*w, nodes[a].y*h);
+          ctx.lineTo(nodes[b].x*w, nodes[b].y*h);
+          ctx.stroke();
+        }
+      }
+    }
+    for (const n of nodes){
+      ctx.fillStyle = 'rgba(55,224,200,.6)';
+      ctx.beginPath();
+      ctx.arc(n.x*w, n.y*h, n.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+    if (!reduced) requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== Flujo animado en secuencia =====
+(function(){
+  const flow = document.getElementById('flow');
+  const items = flow.querySelectorAll('.node, .arrow');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced){ items.forEach(el => el.classList.add('on')); return; }
+  let i = 0, started = false;
+  function step(){
+    if (i < items.length){ items[i].classList.add('on'); i++; setTimeout(step, 420); }
+    else { setTimeout(() => { items.forEach(el => el.classList.remove('on')); i = 0; setTimeout(step, 700); }, 3000); }
+  }
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !started){ started = true; setTimeout(step, 400); obs.disconnect(); }
+  }, { threshold:0.4 });
+  obs.observe(flow);
+})();
+
+// ===== Reveal on scroll =====
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold:0.15 });
+  els.forEach(el => obs.observe(el));
+})();
+</script>
+</body>
+</html>

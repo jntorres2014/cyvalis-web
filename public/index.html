@@ -298,7 +298,8 @@
     <h2 data-i18n="final_h2">¿Cuánto tiempo podría ahorrar tu empresa?</h2>
     <p data-i18n="final_p">Contanos cómo trabajás hoy y te decimos qué se puede automatizar. La primera llamada es gratuita.</p>
     <div class="hero-btns" style="margin-top:30px;">
-      <a class="btn-primary" href="https://wa.me/5492975448292" data-i18n="btn_primary2">Agendá una llamada gratuita</a>
+      <a class="btn-primary" id="waBtn" href="#" target="_blank" rel="noopener" data-i18n="btn_whatsapp">Escribinos por WhatsApp</a>
+      <a class="btn-ghost" id="mailBtn" href="#" data-i18n="btn_mail">Escribinos por mail</a>
     </div>
   </div>
 </section>
@@ -306,6 +307,7 @@
 <footer>
   <a class="logo" href="#">cy<em>valis</em></a>
   <span class="muted" data-i18n="footer">© 2026 Cyvalis · Automatización e inteligencia artificial para tu empresa</span>
+  <a class="muted" href="mailto:contact@cyvalis.com" style="text-decoration:none;">contact@cyvalis.com</a>
 </footer>
 
 <script>
@@ -353,6 +355,11 @@ const I18N = {
     final_h2: "¿Cuánto tiempo podría ahorrar tu empresa?",
     final_p: "Contanos cómo trabajás hoy y te decimos qué se puede automatizar. La primera llamada es gratuita.",
     btn_primary2: "Agendá una llamada gratuita",
+    btn_whatsapp: "Escribinos por WhatsApp",
+    btn_mail: "Escribinos por mail",
+    wa_message: "Hola! Quiero contarles cómo trabajamos hoy para ver qué podríamos automatizar.",
+    mail_subject: "Quiero automatizar mi empresa",
+    mail_body: "Hola equipo de Cyvalis,\n\nQuiero contarles cómo trabajamos hoy para ver qué podríamos automatizar.\n\nEmpresa:\nRubro:\nQué nos gustaría mejorar:\n\n¡Gracias!",
     footer: "© 2026 Cyvalis · Automatización e inteligencia artificial para tu empresa"
   },
   en: {
@@ -395,6 +402,11 @@ const I18N = {
     final_h2: "Let's make your business work smarter.",
     final_p: "Book a free consultation and discover how much time your business could save.",
     btn_primary2: "Book a Free Call",
+    btn_whatsapp: "Message us on WhatsApp",
+    btn_mail: "Email us",
+    wa_message: "Hi! I'd like to walk you through how we currently work, to see what could be automated.",
+    mail_subject: "I want to automate my business",
+    mail_body: "Hi Cyvalis team,\n\nI'd like to walk you through how we currently work, to see what could be automated.\n\nCompany:\nIndustry:\nWhat we'd like to improve:\n\nThanks!",
     footer: "© 2026 Cyvalis · Simple automation. Real business results."
   }
 };
@@ -418,6 +430,16 @@ function applyLang(lang){
     if (t[key]) el.textContent = t[key];
   });
   document.getElementById("langBtn").textContent = lang === "es" ? "EN" : "ES";
+  const mailBtn = document.getElementById("mailBtn");
+  if (mailBtn) {
+    const subject = encodeURIComponent(t.mail_subject);
+    const body = encodeURIComponent(t.mail_body);
+    mailBtn.href = "mailto:contact@cyvalis.com?subject=" + subject + "&body=" + body;
+  }
+  const waBtn = document.getElementById("waBtn");
+  if (waBtn) {
+    waBtn.href = "https://wa.me/5492975448292?text=" + encodeURIComponent(t.wa_message);
+  }
   try { localStorage.setItem("cyvalis-lang", lang); } catch(e){ /* sin persistencia, no pasa nada */ }
 }
 
